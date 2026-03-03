@@ -11,7 +11,7 @@ if (mysqli_query($conn, $query_del)) {
     echo "Error deleting admin: " . mysqli_error($conn) . "\n";
 }
 
-// 2. Insert new admin with MD5
+
 $username = 'admin';
 $password_plain = 'admin123'; 
 $password_md5 = md5($password_plain);
