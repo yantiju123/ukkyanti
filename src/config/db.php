@@ -1,15 +1,23 @@
 <?php
 // src/config/db.php
 
-// Ambil variabel lingkungan dari Vercel/Aiven
-$host = getenv('DB_HOST');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-$db   = getenv('DB_NAME');
-$port = getenv('DB_PORT') ?: '3306';
+// Deteksi apakah sedang di Vercel
+$isVercel = isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL']) || getenv('VERCEL');
 
-// Jika variabel tidak ditemukan (biasanya saat di localhost XAMPP)
-if (!$host) {
+// Ambil variabel lingkungan
+$host = $_ENV['DB_HOST'] ?? $_SERVER['DB_HOST'] ?? getenv('DB_HOST');
+$user = $_ENV['DB_USER'] ?? $_SERVER['DB_USER'] ?? getenv('DB_USER');
+$pass = $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? getenv('DB_PASS');
+$db   = $_ENV['DB_NAME'] ?? $_SERVER['DB_NAME'] ?? getenv('DB_NAME');
+$port = $_ENV['DB_PORT'] ?? $_SERVER['DB_PORT'] ?? getenv('DB_PORT') ?? '3306';
+
+// Jika di Vercel tapi variabel kosong, tampilkan pesan instruksi
+if ($isVercel && !$host) {
+    die("Error: Variabel Database (DB_HOST) belum terbaca di Vercel. Pastikan Anda sudah menambahkannya di Dashboard Vercel > Settings > Environment Variables dan melakukan redeploy.");
+}
+
+// Jika tidak di Vercel (Lokal), gunakan default XAMPP
+if (!$isVercel && !$host) {
     $host = 'localhost';
     $user = 'root';
     $pass = ''; 
@@ -21,7 +29,7 @@ if (!$host) {
 $conn = mysqli_connect($host, $user, $pass, $db, $port);
 
 if (!$conn) {
-    die("Koneksi Database Gagal: " . mysqli_connect_error() . " (Host: $host)");
+    die("Koneksi Database Gagal! Host: " . $host . " - Error: " . mysqli_connect_error());
 }
 
 // Set Timezone
