@@ -1,0 +1,22 @@
+{
+  "functions": {
+    "**/*.php": {
+      "runtime": "vercel-php@0.7.1"
+    }
+  },
+  "routes": [
+    {
+      "src": "/(assets|css|js|img|vendors)/(.*)",
+      "dest": "/$1/$2"
+    },
+    {
+      "src": "/(.*).php",
+      "dest": "/$1.php"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "cleanUrls": true
+}

@@ -1,0 +1,6 @@
+.git
+.gitignore
+node_modules
+*.sql
+php.ini
+/tmp
