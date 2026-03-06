@@ -1,23 +1,17 @@
 {
   "functions": {
-    "index.php": {
-      "runtime": "vercel-php@0.7.1"
-    },
-    "pages/**/*.php": {
-      "runtime": "vercel-php@0.7.1"
-    },
-    "*.php": {
+    "api/index.php": {
       "runtime": "vercel-php@0.7.1"
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(assets|css|js|img|vendors)/(.*)",
-      "dest": "/$1/$2"
+      "source": "/(assets|css|js|img|vendors)/(.*)",
+      "destination": "/$1/$2"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/(.*)",
+      "destination": "/api/index.php"
     }
   ]
 }
