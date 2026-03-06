@@ -1,6 +1,12 @@
 {
   "functions": {
-    "**/*.php": {
+    "index.php": {
+      "runtime": "vercel-php@0.7.1"
+    },
+    "pages/**/*.php": {
+      "runtime": "vercel-php@0.7.1"
+    },
+    "*.php": {
       "runtime": "vercel-php@0.7.1"
     }
   },
@@ -10,13 +16,8 @@
       "dest": "/$1/$2"
     },
     {
-      "src": "/(.*).php",
-      "dest": "/$1.php"
-    },
-    {
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "cleanUrls": true
+  ]
 }
