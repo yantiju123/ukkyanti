@@ -1,21 +1,33 @@
 <?php
 // api/index.php
-// Bridge router for Vercel
+// Ultimate Router for Vercel PHP (JuicyFX Runtime)
 
-$uri = $_SERVER['REQUEST_URI'];
-$uri = explode('?', $uri)[0]; // Hilangkan query string
+$uri = $_SERVER['REQUEST_URI'] ?? '/';
+$uri = explode('?', $uri)[0];
 
-// Tentukan file mana yang akan dipanggil
-$file = __DIR__ . '/..' . $uri;
+// Root directory for our private source code
+$baseDir = __DIR__ . '/../src';
 
+// Special Handling for Root
 if ($uri == '/' || $uri == '') {
-    // Jika akses root, panggil index.php di folder utama
-    require __DIR__ . '/../index.php';
-} elseif (file_exists($file) && is_file($file) && pathinfo($file, PATHINFO_EXTENSION) == 'php') {
-    // Jika file PHP yang diminta ada (contoh: /pages/admin/dashboard.php)
-    require $file;
-} else {
-    // Fallback ke index.php utama jika tidak ditemukan
-    http_response_code(404);
-    require __DIR__ . '/../index.php';
+    require $baseDir . '/index.php';
+    exit;
 }
+
+// Map the request to our src directory
+$targetFile = $baseDir . $uri;
+
+// If the target is a directory, check for index.php inside it
+if (is_dir($targetFile)) {
+    $targetFile = rtrim($targetFile, '/') . '/index.php';
+}
+
+// Safety check: Only execute PHP files from within the src directory
+if (file_exists($targetFile) && is_file($targetFile) && pathinfo($targetFile, PATHINFO_EXTENSION) === 'php') {
+    require $targetFile;
+    exit;
+}
+
+// Fallback to 404
+http_response_code(404);
+echo "404 - Not Found";
