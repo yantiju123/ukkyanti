@@ -7,12 +7,8 @@
   },
   "routes": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(assets|css|js|img|vendors)/(.*)",
-      "dest": "/$1/$2",
-      "continue": true
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
     },
     {
       "src": "/api/setup.php",
