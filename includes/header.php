@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Main Style -->
+    <link rel="stylesheet" href="/assets/style.css">
     <style>
         /* Custom Scrollbar if needed, otherwise Tailwind checks out */
         body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
