@@ -1,8 +1,8 @@
 <?php
 // pages/admin/tarif.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['admin']);
@@ -72,7 +72,7 @@ $total_jenis = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total 
 $max_tarif = mysqli_fetch_assoc(mysqli_query($conn, "SELECT MAX(tarif) as max_t FROM tarif"))['max_t'];
 $avg_tarif = mysqli_fetch_assoc(mysqli_query($conn, "SELECT AVG(tarif) as avg_t FROM tarif"))['avg_t'];
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <!-- Statistics Cards Section -->
@@ -235,4 +235,4 @@ include '../../includes/header.php';
 
 </div>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>
