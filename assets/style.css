@@ -147,6 +147,14 @@ th {
 .btn-primary {
     background: var(--primary);
     color: white;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background: #0b7a70;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
 }
 
 .btn-success {
