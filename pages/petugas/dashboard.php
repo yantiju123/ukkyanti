@@ -1,8 +1,8 @@
 <?php
 // pages/petugas/dashboard.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['petugas', 'admin']);
@@ -25,7 +25,7 @@ $active_park = mysqli_fetch_assoc($q_active)['total'] ?? 0;
 $q_omset = mysqli_query($conn, "SELECT SUM(total_bayar) as total FROM transaksi WHERE id_petugas = '$user_id' AND DATE(jam_keluar) = '$today'");
 $my_omset = mysqli_fetch_assoc($q_omset)['total'] ?? 0;
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <!-- Statistics Summary Section -->
@@ -150,4 +150,4 @@ include '../../includes/header.php';
     </div>
 </div>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>

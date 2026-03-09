@@ -24,6 +24,11 @@ if (!$host) {
     $pass = ''; 
     $db   = 'ukk_yanti';
     $port = '3306';
+} else {
+    // Jika di Vercel tapi $db kosong, gunakan 'defaultdb' (standar Aiven)
+    if (!$db) {
+        $db = 'defaultdb';
+    }
 }
 
 // Koneksi ke Database

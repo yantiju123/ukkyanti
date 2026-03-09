@@ -1,7 +1,7 @@
 {
   "version": 2,
   "functions": {
-    "api/index.php": {
+    "api/*.php": {
       "runtime": "vercel-php@0.7.1"
     }
   },
@@ -10,6 +10,10 @@
       "src": "/(assets|css|js|img|vendors)/(.*)",
       "dest": "/$1/$2",
       "continue": true
+    },
+    {
+      "src": "/api/setup.php",
+      "dest": "/api/setup.php"
     },
     {
       "src": "/(.*)",

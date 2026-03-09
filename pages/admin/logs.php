@@ -1,8 +1,8 @@
 <?php
 // pages/admin/logs.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['admin']);
@@ -15,7 +15,7 @@ $logs_today = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total F
 $most_active_user = mysqli_fetch_assoc(mysqli_query($conn, "SELECT u.username FROM log_aktivitas l JOIN users u ON l.id_user = u.id_user GROUP BY l.id_user ORDER BY COUNT(*) DESC LIMIT 1"))['username'] ?? '-';
 $total_logs = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM log_aktivitas"))['total'];
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <!-- Activity Stats Section -->
@@ -135,4 +135,4 @@ include '../../includes/header.php';
     </div>
 </div>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>

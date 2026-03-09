@@ -1,8 +1,8 @@
 <?php
 // pages/admin/kendaraan.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['admin']);
@@ -74,7 +74,7 @@ if (isset($_GET['edit'])) {
     }
 }
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <div class="flex flex-col lg:flex-row gap-8">
@@ -226,4 +226,4 @@ include '../../includes/header.php';
 
 </div>
 
-<?php include '../../includes/header.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>

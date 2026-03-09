@@ -1,8 +1,8 @@
 <?php
 // pages/admin/area.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['admin']);
@@ -68,7 +68,7 @@ $total_area = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total F
 $total_kapasitas = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(kapasitas) as total FROM area_parkir"))['total'];
 $total_terisi = mysqli_fetch_assoc(mysqli_query($conn, "SELECT SUM(terisi) as total FROM area_parkir"))['total'];
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <!-- Statistics Section -->
@@ -224,4 +224,4 @@ include '../../includes/header.php';
     </div>
 </div>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>

@@ -1,8 +1,8 @@
 <?php
 // pages/admin/dashboard.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['admin']);
@@ -25,7 +25,7 @@ $parkir_aktif = mysqli_fetch_assoc($res_parkir)['total'] ?? 0;
 $res_cap = mysqli_query($conn, "SELECT SUM(kapasitas) as total FROM area_parkir");
 $total_kapasitas = mysqli_fetch_assoc($res_cap)['total'] ?? 0;
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <!-- Statistics Row -->
@@ -190,4 +190,4 @@ include '../../includes/header.php';
 
 </div>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>

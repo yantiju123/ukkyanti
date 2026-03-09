@@ -1,8 +1,8 @@
 <?php
 // pages/petugas/entry.php
-require_once '../../config/db.php';
-require_once '../../includes/auth.php';
-require_once '../../includes/functions.php';
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/auth.php';
+require_once __DIR__ . '/../../includes/functions.php';
 
 cekLogin();
 cekRole(['petugas', 'admin']);
@@ -67,7 +67,7 @@ $today = date('Y-m-d');
 $total_today = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM transaksi WHERE DATE(jam_masuk) = '$today'"))['total'];
 $current_parked = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(*) as total FROM transaksi WHERE status = 'masuk'"))['total'];
 
-include '../../includes/header.php';
+include __DIR__ . '/../../includes/header.php';
 ?>
 
 <!-- Top Statistics Cards -->
@@ -230,4 +230,4 @@ include '../../includes/header.php';
 
 </div>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>
