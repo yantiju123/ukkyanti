@@ -1,7 +1,9 @@
 /* assets/style.css */
 :root {
-    --primary: #2563eb;    /* Professional Blue */
-    --secondary: #64748b;  /* Slate Gray */
+    --primary: #0d9488;
+    /* Teal Green (Toska) */
+    --secondary: #64748b;
+    /* Slate Gray */
     --success: #22c55e;
     --danger: #ef4444;
     --light: #f1f5f9;
@@ -37,7 +39,7 @@ body {
 .sidebar-header {
     padding: 20px;
     text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-menu {
@@ -53,7 +55,8 @@ body {
     transition: 0.3s;
 }
 
-.sidebar-menu li a:hover, .sidebar-menu li a.active {
+.sidebar-menu li a:hover,
+.sidebar-menu li a.active {
     background-color: var(--primary);
     color: var(--white);
 }
@@ -72,7 +75,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;
 }
 
@@ -88,7 +91,7 @@ body {
     background: var(--white);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .card-title {
@@ -108,7 +111,7 @@ body {
     background: var(--white);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     overflow-x: auto;
 }
 
@@ -117,7 +120,8 @@ table {
     border-collapse: collapse;
 }
 
-th, td {
+th,
+td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #e2e8f0;
@@ -140,13 +144,32 @@ th {
     display: inline-block;
 }
 
-.btn-primary { background: var(--primary); color: white; }
-.btn-success { background: var(--success); color: white; }
-.btn-danger { background: var(--danger); color: white; }
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-success {
+    background: var(--success);
+    color: white;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
 
 /* Forms */
-.form-group { margin-bottom: 15px; }
-.form-label { display: block; margin-bottom: 5px; color: var(--secondary); }
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--secondary);
+}
+
 .form-control {
     width: 100%;
     padding: 10px;
@@ -166,7 +189,7 @@ th {
     background: white;
     padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 400px;
 }
