@@ -118,69 +118,73 @@ $avg_per_day = $stats['total_omset'] / $days;
         </button>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="flex flex-col gap-4">
         <!-- Layer 1: Filter Tanggal -->
-        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative overflow-hidden <?php echo ($filter_type == 'date') ? 'ring-2 ring-teal-500' : ''; ?>">
-            <?php if ($filter_type == 'date'): ?>
-                <div class="absolute top-0 right-0 bg-teal-500 text-white text-[8px] font-black uppercase px-2 py-1 rounded-bl-lg">Aktif</div>
-            <?php endif; ?>
-            <form method="GET" class="flex flex-col gap-3 h-full">
+        <div class="bg-gray-50 rounded-xl border border-gray-200 <?php echo ($filter_type == 'date') ? 'bg-teal-50/30 border-teal-200' : ''; ?> transition-all">
+            <form method="GET" class="flex flex-col md:flex-row items-center p-3 gap-4">
                 <input type="hidden" name="filter_type" value="date">
-                <div class="flex items-center space-x-2 mb-2">
-                    <i class="fas fa-calendar-day text-teal-600"></i>
-                    <h4 class="font-bold text-sm tracking-tight text-gray-700">Layer Hari / Tanggal</h4>
+                <div class="flex flex-col justify-center min-w-[150px] pl-2 border-l-4 <?php echo ($filter_type == 'date') ? 'border-teal-500' : 'border-transparent'; ?>">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-calendar-day text-teal-600 text-sm"></i>
+                        <h4 class="font-bold text-xs text-gray-700">Harian / Rentang</h4>
+                    </div>
                 </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">Dari Tanggal</label>
-                    <input type="date" name="start" value="<?php echo ($filter_type == 'date') ? $start_date : date('Y-m-01'); ?>" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold text-gray-700 focus:ring-2 focus:ring-teal-500 outline-none transition cursor-pointer">
+                
+                <div class="flex flex-1 flex-col sm:flex-row items-center gap-3 w-full">
+                    <div class="flex items-center space-x-2 w-full sm:w-1/2">
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest min-w-[40px]">Dari</label>
+                        <input type="date" name="start" value="<?php echo ($filter_type == 'date') ? $start_date : date('Y-m-01'); ?>" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-bold text-gray-700 focus:ring-1 focus:ring-teal-500 outline-none">
+                    </div>
+                    <div class="flex items-center space-x-2 w-full sm:w-1/2">
+                        <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest min-w-[40px]">Sampai</label>
+                        <input type="date" name="end" value="<?php echo ($filter_type == 'date') ? $end_date : date('Y-m-d'); ?>" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-bold text-gray-700 focus:ring-1 focus:ring-teal-500 outline-none">
+                    </div>
                 </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">Sampai Tanggal</label>
-                    <input type="date" name="end" value="<?php echo ($filter_type == 'date') ? $end_date : date('Y-m-d'); ?>" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold text-gray-700 focus:ring-2 focus:ring-teal-500 outline-none transition cursor-pointer">
-                </div>
-                <div class="mt-auto pt-2">
-                    <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white px-4 py-2.5 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all flex items-center justify-center space-x-2"><i class="fas fa-sync-alt"></i> <span>Terapkan</span></button>
-                </div>
+                
+                <button type="submit" class="w-full md:w-auto bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap">
+                    <?php if ($filter_type == 'date') echo '<i class="fas fa-check mr-1"></i>'; ?> Terapkan
+                </button>
             </form>
         </div>
 
         <!-- Layer 2: Filter Bulan -->
-        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative overflow-hidden <?php echo ($filter_type == 'month') ? 'ring-2 ring-blue-500' : ''; ?>">
-            <?php if ($filter_type == 'month'): ?>
-                <div class="absolute top-0 right-0 bg-blue-500 text-white text-[8px] font-black uppercase px-2 py-1 rounded-bl-lg">Aktif</div>
-            <?php endif; ?>
-            <form method="GET" class="flex flex-col gap-3 h-full">
+        <div class="bg-gray-50 rounded-xl border border-gray-200 <?php echo ($filter_type == 'month') ? 'bg-blue-50/30 border-blue-200' : ''; ?> transition-all">
+            <form method="GET" class="flex flex-col md:flex-row items-center p-3 gap-4">
                 <input type="hidden" name="filter_type" value="month">
-                <div class="flex items-center space-x-2 mb-2">
-                    <i class="fas fa-calendar-week text-blue-600"></i>
-                    <h4 class="font-bold text-sm tracking-tight text-gray-700">Layer Bulan</h4>
+                <div class="flex flex-col justify-center min-w-[150px] pl-2 border-l-4 <?php echo ($filter_type == 'month') ? 'border-blue-500' : 'border-transparent'; ?>">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-calendar-week text-blue-600 text-sm"></i>
+                        <h4 class="font-bold text-xs text-gray-700">Bulanan</h4>
+                    </div>
                 </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">Pilih Bulan & Tahun</label>
-                    <input type="month" name="month_val" value="<?php echo $month_val; ?>" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold text-gray-700 focus:ring-2 focus:ring-blue-500 outline-none transition cursor-pointer">
+                
+                <div class="flex flex-1 items-center w-full">
+                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest mr-4 hidden sm:block">Pilih Bulan</label>
+                    <input type="month" name="month_val" value="<?php echo $month_val; ?>" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-bold text-gray-700 focus:ring-1 focus:ring-blue-500 outline-none">
                 </div>
-                <div class="mt-auto pt-2">
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all flex items-center justify-center space-x-2"><i class="fas fa-sync-alt"></i> <span>Terapkan</span></button>
-                </div>
+                
+                <button type="submit" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap">
+                    <?php if ($filter_type == 'month') echo '<i class="fas fa-check mr-1"></i>'; ?> Terapkan
+                </button>
             </form>
         </div>
 
         <!-- Layer 3: Filter Tahun -->
-        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 relative overflow-hidden <?php echo ($filter_type == 'year') ? 'ring-2 ring-purple-500' : ''; ?>">
-            <?php if ($filter_type == 'year'): ?>
-                <div class="absolute top-0 right-0 bg-purple-500 text-white text-[8px] font-black uppercase px-2 py-1 rounded-bl-lg">Aktif</div>
-            <?php endif; ?>
-            <form method="GET" class="flex flex-col gap-3 h-full">
+        <div class="bg-gray-50 rounded-xl border border-gray-200 <?php echo ($filter_type == 'year') ? 'bg-purple-50/30 border-purple-200' : ''; ?> transition-all">
+            <form method="GET" class="flex flex-col md:flex-row items-center p-3 gap-4">
                 <input type="hidden" name="filter_type" value="year">
-                <div class="flex items-center space-x-2 mb-2">
-                    <i class="fas fa-calendar text-purple-600"></i>
-                    <h4 class="font-bold text-sm tracking-tight text-gray-700">Layer Tahun</h4>
+                <div class="flex flex-col justify-center min-w-[150px] pl-2 border-l-4 <?php echo ($filter_type == 'year') ? 'border-purple-500' : 'border-transparent'; ?>">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-calendar text-purple-600 text-sm"></i>
+                        <h4 class="font-bold text-xs text-gray-700">Tahunan</h4>
+                    </div>
                 </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">Pilih Tahun</label>
-                    <select name="year_val" class="w-full bg-white border border-gray-200 rounded-xl px-4 py-2 text-sm font-bold text-gray-700 focus:ring-2 focus:ring-purple-500 outline-none transition cursor-pointer">
+                
+                <div class="flex flex-1 items-center w-full">
+                    <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest mr-4 hidden sm:block">Pilih Tahun</label>
+                    <select name="year_val" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-1.5 text-xs font-bold text-gray-700 focus:ring-1 focus:ring-purple-500 outline-none">
                         <?php 
-                        $current_year = date('Y') + 1; // Future-proof
+                        $current_year = date('Y') + 1;
                         for ($y = $current_year; $y >= 2020; $y--) {
                             $sel = ($y == $year_val) ? 'selected' : '';
                             echo "<option value='$y' $sel>$y</option>";
@@ -188,9 +192,10 @@ $avg_per_day = $stats['total_omset'] / $days;
                         ?>
                     </select>
                 </div>
-                <div class="mt-auto pt-2">
-                    <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2.5 rounded-xl font-black text-[11px] uppercase tracking-widest transition-all flex items-center justify-center space-x-2"><i class="fas fa-sync-alt"></i> <span>Terapkan</span></button>
-                </div>
+                
+                <button type="submit" class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap">
+                    <?php if ($filter_type == 'year') echo '<i class="fas fa-check mr-1"></i>'; ?> Terapkan
+                </button>
             </form>
         </div>
     </div>
