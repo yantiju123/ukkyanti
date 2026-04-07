@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             catatLog($conn, $id_petugas, "Input kendaraan masuk: $no_polisi");
             mysqli_commit($conn);
             
-            header("Location: cetak_struk.php?id=$id_transaksi&tipe=masuk");
-            exit;
+            $success_print_id = $id_transaksi;
+            $success_print_tipe = 'masuk';
         } catch (Exception $e) {
             mysqli_rollback($conn);
             $error = "Kesalahan Sistem: " . $e->getMessage();
@@ -229,5 +229,27 @@ include __DIR__ . '/../../includes/header.php';
     </div>
 
 </div>
+
+<?php if (isset($success_print_id)): ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: 'Berhasil Disimpan!',
+            text: 'Data kendaraan telah masuk. Apakah Anda ingin mencetak struk?',
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#0d9488', // teal-600
+            cancelButtonColor: '#6b7280', // gray-500
+            confirmButtonText: '<i class="fas fa-print"></i> Cetak Struk',
+            cancelButtonText: 'Lewati',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'cetak_struk.php?id=<?php echo $success_print_id; ?>&tipe=<?php echo $success_print_tipe; ?>';
+            }
+        });
+    });
+</script>
+<?php endif; ?>
 
 <?php include __DIR__ . '/../../includes/footer.php'; ?>

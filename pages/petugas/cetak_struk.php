@@ -56,12 +56,12 @@ if (!$data) die("Data tidak ditemukan");
         }).then((result) => {
             if (result.isConfirmed) {
                 window.print();
-                // Opsi kembali setelah print
+                // Opsi kembali setelah print mengarah ke dashboard
                 window.onafterprint = function() {
-                    window.history.back();
+                    window.location.href = 'dashboard.php';
                 };
                 setTimeout(function() {
-                    window.history.back();
+                    window.location.href = 'dashboard.php';
                 }, 1000);
             }
         });
@@ -106,7 +106,7 @@ if (!$data) die("Data tidak ditemukan");
     <small>Petugas: <?php echo $data['petugas']; ?></small>
     
     <br><br>
-    <button onclick="window.history.back()" style="display: none;" class="no-print">Kembali</button>
+    <button onclick="window.location.href='dashboard.php'" style="display: none;" class="no-print">Kembali</button>
     <style>
         @media print {
             .no-print { display: none; }
