@@ -34,9 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $no_polisi = strtoupper(bersihkanInput($_POST['no_polisi']));
     $jenis = bersihkanInput($_POST['jenis']);
     $pemilik = bersihkanInput($_POST['pemilik']);
-    $warna = bersihkanInput($_POST['warna']);
     $status = bersihkanInput($_POST['status']);
     $id_input = isset($_POST['id_kendaraan']) ? intval($_POST['id_kendaraan']) : 0;
+    
+    // We keep 'warna' as empty string in DB if schema requires it, or just use default.
+    $warna = '';
     
     if ($id_input > 0) {
         // Edit
@@ -104,7 +106,6 @@ include __DIR__ . '/../../includes/header.php';
                         <tr class="text-left text-gray-400 text-xs font-bold uppercase tracking-widest border-b border-gray-100">
                             <th class="pb-4">Plat Nomor</th>
                             <th class="pb-4">Jenis & Pemilik</th>
-                            <th class="pb-4">Warna</th>
                             <th class="pb-4">Status</th>
                             <th class="pb-4 text-center">Aksi</th>
                         </tr>
@@ -124,9 +125,6 @@ include __DIR__ . '/../../includes/header.php';
                             <td class="py-4">
                                 <div class="font-bold text-gray-700"><?php echo htmlspecialchars($row['pemilik'] ?? '-'); ?></div>
                                 <div class="text-xs text-teal-600 font-semibold uppercase"><?php echo $row['jenis_kendaraan']; ?></div>
-                            </td>
-                            <td class="py-4">
-                                <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded"><?php echo htmlspecialchars($row['warna'] ?? '-'); ?></span>
                             </td>
                             <td class="py-4">
                                 <?php if(($row['status'] ?? 'aktif') == 'aktif'): ?>
@@ -172,20 +170,13 @@ include __DIR__ . '/../../includes/header.php';
                     value="<?php echo htmlspecialchars($edit_no_polisi); ?>" required placeholder="B 1234 ABC">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Jenis</label>
-                        <select name="jenis" class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-50 rounded-xl focus:outline-none focus:border-teal-500 focus:bg-white transition text-gray-700 font-bold">
-                            <option value="Motor" <?php echo $edit_jenis == 'Motor' ? 'selected' : ''; ?>>Motor</option>
-                            <option value="Mobil" <?php echo $edit_jenis == 'Mobil' ? 'selected' : ''; ?>>Mobil</option>
-                            <option value="Truk" <?php echo $edit_jenis == 'Truk' ? 'selected' : ''; ?>>Truk</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Warna</label>
-                        <input type="text" name="warna" class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-50 rounded-xl focus:outline-none focus:border-teal-500 focus:bg-white transition text-gray-700 font-bold" 
-                        value="<?php echo htmlspecialchars($edit_warna); ?>" placeholder="Putih">
-                    </div>
+                <div>
+                    <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Jenis</label>
+                    <select name="jenis" class="w-full px-4 py-2.5 bg-gray-50 border-2 border-gray-50 rounded-xl focus:outline-none focus:border-teal-500 focus:bg-white transition text-gray-700 font-bold">
+                        <option value="Motor" <?php echo $edit_jenis == 'Motor' ? 'selected' : ''; ?>>Motor</option>
+                        <option value="Mobil" <?php echo $edit_jenis == 'Mobil' ? 'selected' : ''; ?>>Mobil</option>
+                        <option value="Truk" <?php echo $edit_jenis == 'Truk' ? 'selected' : ''; ?>>Truk</option>
+                    </select>
                 </div>
 
                 <div>
