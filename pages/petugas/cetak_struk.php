@@ -28,6 +28,10 @@ if (!$data) die("Data tidak ditemukan");
 <html>
 <head>
     <title>Struk Parkir</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body { font-family: 'Courier New', Courier, monospace; width: 300px; padding: 20px; text-align: center; }
         .line { border-bottom: 1px dashed black; margin: 10px 0; }
@@ -35,9 +39,35 @@ if (!$data) die("Data tidak ditemukan");
         .right { text-align: right; float: right; }
         .row { overflow: hidden; }
         h2 { margin: 5px 0; }
+        @media print {
+            .swal2-container { display: none !important; }
+        }
     </style>
 </head>
-<body onload="window.print()">
+<script>
+    function openPrint() {
+        Swal.fire({
+            title: 'Proses Berhasil!',
+            text: 'Struk parkir siap untuk dicetak.',
+            icon: 'success',
+            confirmButtonColor: '#0d9488', // teal-600
+            confirmButtonText: '<i class="fas fa-print"></i> Cetak Sekarang',
+            allowOutsideClick: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.print();
+                // Opsi kembali setelah print
+                window.onafterprint = function() {
+                    window.history.back();
+                };
+                setTimeout(function() {
+                    window.history.back();
+                }, 1000);
+            }
+        });
+    }
+</script>
+<body onload="openPrint()">
     <h2>E-PARKING</h2>
     <p>SMK UKK 2026</p>
     <div class="line"></div>

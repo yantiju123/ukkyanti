@@ -77,4 +77,5 @@ INSERT INTO tarif (jenis_kendaraan, tarif) VALUES
 -- Insert Default Area
 INSERT INTO area_parkir (nama_area, kapasitas) VALUES 
 ('Lantai 1 - Motor', 100),
-('Lantai 2 - Mobil', 50);
+('Lantai 2 - Mobil', 100),
+('Lantai 3 - Truk', 100);

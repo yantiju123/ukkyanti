@@ -113,11 +113,9 @@ include __DIR__ . '/../../includes/header.php';
                 <div class="flex justify-between items-end mb-2 px-1">
                     <div>
                         <span class="block text-xs font-black text-gray-700 uppercase tracking-widest"><?php echo $area['nama_area']; ?></span>
-                        <span class="text-[10px] font-bold text-gray-400">ID: SECTION-<?php echo $area['id_area']; ?></span>
                     </div>
-                    <div class="text-right">
+                    <div class="text-right flex items-center justify-end h-full">
                         <span class="block text-sm font-black text-gray-800 leading-none"><?php echo $area['terisi']; ?> / <?php echo $area['kapasitas']; ?></span>
-                        <span class="text-[10px] font-black text-teal-600 uppercase tracking-tighter"><?php echo round($percent); ?>% Occupied</span>
                     </div>
                 </div>
                 <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden shadow-inner border border-gray-50">
