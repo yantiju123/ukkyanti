@@ -134,16 +134,23 @@ include __DIR__ . '/../../includes/header.php';
                         </select>
                     </div>
                     <div class="space-y-2">
-                        <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">Area Tujuan</label>
                         <select name="id_area" class="w-full px-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl focus:outline-none focus:border-teal-500 transition text-gray-700 font-bold">
+                            <option value="">-- Pilih Area --</option>
                             <?php
-                            $q_a = mysqli_query($conn, "SELECT * FROM area_parkir");
+                            $q_a = mysqli_query($conn, "SELECT * FROM area_parkir ORDER BY jenis_kendaraan, nama_area");
+                            $current_type = '';
                             while($a = mysqli_fetch_assoc($q_a)) {
+                                if ($current_type != $a['jenis_kendaraan']) {
+                                    if ($current_type != '') echo "</optgroup>";
+                                    $current_type = $a['jenis_kendaraan'];
+                                    echo "<optgroup label='AREA " . strtoupper($current_type) . "'>";
+                                }
                                 $sisa = $a['kapasitas'] - $a['terisi'];
                                 $disabled = $sisa <= 0 ? 'disabled' : '';
                                 $status_area = $sisa <= 0 ? '(PENUH)' : "($sisa Slot)";
                                 echo "<option value='{$a['id_area']}' $disabled>{$a['nama_area']} $status_area</option>";
                             }
+                            if ($current_type != '') echo "</optgroup>";
                             ?>
                         </select>
                     </div>
@@ -185,7 +192,7 @@ include __DIR__ . '/../../includes/header.php';
                     </thead>
                     <tbody class="divide-y divide-gray-50">
                         <?php
-                        $q_recent = "SELECT t.*, k.no_polisi, k.jenis_kendaraan, a.nama_area, u.username 
+                        $q_recent = "SELECT t.*, k.no_polisi, k.jenis_kendaraan, a.nama_area, a.jenis_kendaraan as jenis_area, u.username 
                                      FROM transaksi t 
                                      JOIN kendaraan k ON t.id_kendaraan = k.id_kendaraan 
                                      JOIN area_parkir a ON t.id_area = a.id_area 
@@ -207,7 +214,15 @@ include __DIR__ . '/../../includes/header.php';
                             </td>
                             <td class="py-4">
                                 <div class="font-bold text-gray-700 text-sm"><?php echo $row['jenis_kendaraan']; ?></div>
-                                <div class="text-[10px] text-teal-600 font-bold uppercase"><?php echo $row['nama_area']; ?></div>
+                                <div class="flex items-center space-x-1">
+                                    <?php 
+                                    $a_icon = 'fa-car'; $a_color = 'text-indigo-600';
+                                    if ($row['jenis_area'] == 'Motor') { $a_icon = 'fa-motorcycle'; $a_color = 'text-teal-600'; }
+                                    if ($row['jenis_area'] == 'Truk') { $a_icon = 'fa-truck-moving'; $a_color = 'text-amber-600'; }
+                                    ?>
+                                    <i class="fas <?php echo $a_icon; ?> <?php echo $a_color; ?> text-[10px]"></i>
+                                    <div class="text-[10px] <?php echo $a_color; ?> font-black uppercase"><?php echo $row['nama_area']; ?></div>
+                                </div>
                             </td>
                             <td class="py-4 text-center">
                                 <div class="flex flex-col items-center">

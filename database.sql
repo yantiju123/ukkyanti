@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS tarif (
 CREATE TABLE IF NOT EXISTS area_parkir (
     id_area INT AUTO_INCREMENT PRIMARY KEY,
     nama_area VARCHAR(50) NOT NULL,
+    jenis_kendaraan VARCHAR(50) NOT NULL,
     kapasitas INT NOT NULL,
     terisi INT DEFAULT 0
 );
@@ -74,8 +75,14 @@ INSERT INTO tarif (jenis_kendaraan, tarif) VALUES
 ('Mobil', 5000),
 ('Truk', 10000);
 
--- Insert Default Area
-INSERT INTO area_parkir (nama_area, kapasitas) VALUES 
-('Lantai 1 - Motor', 100),
-('Lantai 2 - Mobil', 100),
-('Lantai 3 - Truk', 100);
+-- Insert Default Area (3 Lantai x 3 Jenis)
+INSERT INTO area_parkir (nama_area, jenis_kendaraan, kapasitas) VALUES 
+('Lantai 1 - Motor', 'Motor', 100),
+('Lantai 1 - Mobil', 'Mobil', 100),
+('Lantai 1 - Truk', 'Truk', 100),
+('Lantai 2 - Motor', 'Motor', 100),
+('Lantai 2 - Mobil', 'Mobil', 100),
+('Lantai 2 - Truk', 'Truk', 100),
+('Lantai 3 - Motor', 'Motor', 100),
+('Lantai 3 - Mobil', 'Mobil', 100),
+('Lantai 3 - Truk', 'Truk', 100);

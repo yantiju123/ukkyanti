@@ -16,6 +16,7 @@ $is_edit = false;
 $edit_id = '';
 $edit_nama = '';
 $edit_kapasitas = '';
+$edit_jenis = '';
 
 // Handle Delete
 if (isset($_GET['hapus'])) {
@@ -29,20 +30,21 @@ if (isset($_GET['hapus'])) {
 // Handle Form Submission (Add/Edit)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nama_input = bersihkanInput($_POST['nama_area']);
+    $jenis_input = bersihkanInput($_POST['jenis_kendaraan']);
     $kapasitas_input = intval($_POST['kapasitas']);
     $id_input = isset($_POST['id_area']) ? intval($_POST['id_area']) : 0;
     
     if ($id_input > 0) {
-        $stmt = mysqli_prepare($conn, "UPDATE area_parkir SET nama_area=?, kapasitas=? WHERE id_area=?");
-        mysqli_stmt_bind_param($stmt, "sii", $nama_input, $kapasitas_input, $id_input);
+        $stmt = mysqli_prepare($conn, "UPDATE area_parkir SET nama_area=?, jenis_kendaraan=?, kapasitas=? WHERE id_area=?");
+        mysqli_stmt_bind_param($stmt, "ssii", $nama_input, $jenis_input, $kapasitas_input, $id_input);
         if (mysqli_stmt_execute($stmt)) {
             catatLog($conn, $_SESSION['user_id'], "Edit area: $nama_input");
             header("Location: area.php?msg=updated");
             exit;
         } else { $error = "Gagal mengupdate area."; }
     } else {
-        $stmt = mysqli_prepare($conn, "INSERT INTO area_parkir (nama_area, kapasitas) VALUES (?, ?)");
-        mysqli_stmt_bind_param($stmt, "si", $nama_input, $kapasitas_input);
+        $stmt = mysqli_prepare($conn, "INSERT INTO area_parkir (nama_area, jenis_kendaraan, kapasitas) VALUES (?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, "ssi", $nama_input, $jenis_input, $kapasitas_input);
         if (mysqli_stmt_execute($stmt)) {
             catatLog($conn, $_SESSION['user_id'], "Tambah area baru: $nama_input");
             header("Location: area.php?msg=added");
@@ -60,6 +62,7 @@ if (isset($_GET['edit'])) {
     if ($row_edit = mysqli_fetch_assoc($res_edit)) {
         $edit_nama = $row_edit['nama_area'];
         $edit_kapasitas = $row_edit['kapasitas'];
+        $edit_jenis = $row_edit['jenis_kendaraan'];
     }
 }
 
@@ -135,13 +138,27 @@ include __DIR__ . '/../../includes/header.php';
                         while ($row = mysqli_fetch_assoc($result)):
                             $terisi = $row['terisi'];
                             $kapasitas = $row['kapasitas'];
+                            $jenis = $row['jenis_kendaraan'];
                             $persen = ($kapasitas > 0) ? ($terisi / $kapasitas) * 100 : 0;
                             $color = $persen >= 90 ? 'bg-red-500' : ($persen >= 70 ? 'bg-orange-500' : 'bg-teal-500');
+
+                            // Icon and Style based on Type
+                            $icon = 'fa-car';
+                            $type_bg = 'bg-indigo-50 text-indigo-600';
+                            if ($jenis == 'Motor') { $icon = 'fa-motorcycle'; $type_bg = 'bg-teal-50 text-teal-600'; }
+                            if ($jenis == 'Truk') { $icon = 'fa-truck-moving'; $type_bg = 'bg-amber-50 text-amber-600'; }
                         ?>
-                        <tr class="group hover:bg-teal-50/30 transition-colors">
+                        <tr class="group hover:bg-gray-50 transition-colors">
                             <td class="py-5">
-                                <div class="font-black text-gray-700 tracking-tight"><?php echo htmlspecialchars($row['nama_area']); ?></div>
-                                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">ID: AREA-0<?php echo $row['id_area']; ?></div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-xl <?php echo $type_bg; ?> flex items-center justify-center shadow-sm border border-current border-opacity-10">
+                                        <i class="fas <?php echo $icon; ?> text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-black text-gray-700 tracking-tight"><?php echo htmlspecialchars($row['nama_area']); ?></div>
+                                        <div class="text-[9px] font-black uppercase text-gray-400">ID: AREA-0<?php echo $row['id_area']; ?> • <?php echo $jenis; ?></div>
+                                    </div>
+                                </div>
                             </td>
                             <td class="py-5">
                                 <div class="flex items-center justify-between mb-1.5 px-1">
@@ -196,7 +213,19 @@ include __DIR__ . '/../../includes/header.php';
                     <div class="relative group">
                         <span class="absolute left-4 top-3 text-gray-300 group-focus-within:text-teal-500 transition"><i class="fas fa-location-dot"></i></span>
                         <input type="text" name="nama_area" class="w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl focus:outline-none focus:border-teal-500 focus:bg-white transition text-gray-700 font-bold" 
-                        value="<?php echo htmlspecialchars($edit_nama); ?>" required placeholder="Mis: Lantai 1 - Sektor A">
+                        value="<?php echo htmlspecialchars($edit_nama); ?>" required placeholder="Mis: Lantai 1">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1.5 pl-1">Jenis Kendaraan</label>
+                    <div class="relative group">
+                        <span class="absolute left-4 top-3 text-gray-300 group-focus-within:text-teal-500 transition"><i class="fas fa-car-side"></i></span>
+                        <select name="jenis_kendaraan" class="w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl focus:outline-none focus:border-teal-500 focus:bg-white transition text-gray-700 font-bold appearance-none">
+                            <option value="Motor" <?php echo $edit_jenis == 'Motor' ? 'selected' : ''; ?>>Motor</option>
+                            <option value="Mobil" <?php echo $edit_jenis == 'Mobil' ? 'selected' : ''; ?>>Mobil</option>
+                            <option value="Truk" <?php echo $edit_jenis == 'Truk' ? 'selected' : ''; ?>>Truk</option>
+                        </select>
                     </div>
                 </div>
 

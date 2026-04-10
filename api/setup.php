@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS tarif (
 CREATE TABLE IF NOT EXISTS area_parkir (
     id_area INT AUTO_INCREMENT PRIMARY KEY,
     nama_area VARCHAR(50) NOT NULL,
+    jenis_kendaraan VARCHAR(50) NOT NULL,
     kapasitas INT NOT NULL,
     terisi INT DEFAULT 0
 );
@@ -68,9 +69,19 @@ INSERT IGNORE INTO tarif (jenis_kendaraan, tarif) VALUES
 ('Mobil', 5000),
 ('Truk', 10000);
 
-INSERT IGNORE INTO area_parkir (nama_area, kapasitas) VALUES 
-('Lantai 1 - Motor', 100),
-('Lantai 2 - Mobil', 50);
+DELETE FROM area_parkir;
+ALTER TABLE area_parkir AUTO_INCREMENT = 1;
+
+INSERT IGNORE INTO area_parkir (nama_area, jenis_kendaraan, kapasitas) VALUES 
+('Lantai 1 - Motor', 'Motor', 100),
+('Lantai 1 - Mobil', 'Mobil', 100),
+('Lantai 1 - Truk', 'Truk', 100),
+('Lantai 2 - Motor', 'Motor', 100),
+('Lantai 2 - Mobil', 'Mobil', 100),
+('Lantai 2 - Truk', 'Truk', 100),
+('Lantai 3 - Motor', 'Motor', 100),
+('Lantai 3 - Mobil', 'Mobil', 100),
+('Lantai 3 - Truk', 'Truk', 100);
 ";
 
 echo "<h2>💎 Ultimate Setup - Database Aiven 💎</h2>";
